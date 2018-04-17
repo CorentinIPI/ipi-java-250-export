@@ -1,24 +1,21 @@
 package com.example.demo.service.export;
 
-import com.example.demo.dto.ClientDTO;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.ClientDTO;
+
 @Service
 public class ExportCSVService {
 
-    public void export(Writer printWriter, List<ClientDTO> clients) throws IOException {
-        printWriter.write("Nom;");
-        printWriter.write("Prenom;");
-        for (ClientDTO client : clients) {
-            printWriter.write(client.getNom());
-            printWriter.write(";");
-            printWriter.write(client.getPrenom());
-            printWriter.write("\n");
-        }
+	public void export(Writer writer, List<ClientDTO> clients) throws IOException {
+		for(ClientDTO client : clients){
+			writer.write(client.getNom().replaceAll(";","")+";"+client.getPrenom().replaceAll(";", "")+";");
+		}
+	}
 
-    }
 }
